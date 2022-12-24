@@ -1,24 +1,24 @@
 <?php
 session_start();
 
-if (isset($_SESSION['username'])&&($_SESSION['ruolo']=="user")){
+if (isset($_SESSION['username'])&&($_SESSION['role']=="user")){
 	
 	
 }else {
 	die ("Error");
 }
-if (isset($_GET['idprod'])){
-	$idprod=$_GET['idprod'];
+if (isset($_GET['prodId'])){
+	$prodId=$_GET['prodId'];
 	
-	if (isset($_SESSION['car'][$idprod])){
+	if (isset($_SESSION['car'][$prodId])){
 		
-		unset($_SESSION['car'][$idprod]);
+		unset($_SESSION['car'][$prodId]);
 	}
 	else {
 		echo "no product has been found";
 	}
 }
 
-header ("Location: carrello.php");
+header ("Location: cart.php");
 
 ?>
