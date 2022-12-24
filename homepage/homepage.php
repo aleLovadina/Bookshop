@@ -4,24 +4,24 @@ BookShop
 </title>
 
 <body>
-<center><h1> Benvenuto in Libreria OnLine </h1></center>
+<center><h1> Welcome to the Online Bookshop </h1></center>
 <br>
-<p align="right"><a href="../login/login.html" target="_new">Login/Registrati</a></p>
+<p align="right"><a href="../login/login.html" target="_new">Login / Sign up</a></p>
 
-<h2>Filtra</h2>
-<form name="filtro" method="get" action="#">  <!--homepage.php-->
+<h2>Filter:</h2>
+<form name="filter" method="get" action="#">  <!--homepage.php-->
 
-titolo:<input type="text" name="titolo">
-<input type="submit" value="cerca">
+By title: <input type="text" name="title">
+<input type="submit" value="search">
 
 </form>
 
 <?php
 //filtro
-if (isset($_REQUEST['titolo']))
-	$titolo=$_REQUEST['titolo'];
+if (isset($_REQUEST['title']))
+	$title=$_REQUEST['title'];
 else
-	$titolo=false;
+	$title=false;
 
 $dbHost = "localhost";
 $dbUsername = "root";
@@ -31,35 +31,35 @@ $dbName = "bookshop" ;
 $con = new mysqli($dbHost, $dbUsername, $dbPassword,$dbName);
 $con->set_charset("utf8");
 if($con->connect_error){
-		die('Errore di connessione a '.$dbName);
+		die('Error encountered when connecting to '.$dbName);
 }
 //filtro
-if ($titolo)
-	$query = "SELECT * FROM  prodotto WHERE titolo like '%$titolo%'";
+if ($title)
+	$query = "SELECT * FROM  products WHERE title like '%$title%'";
 else
-	$query = "SELECT * FROM  prodotto";
+	$query = "SELECT * FROM  products";
 	
-echo $query. "<br/>";
+//echo $query. "<br/>";
 
 $res = $con -> query($query);
 if(!$res){
-	die("Errore lettura tabella prodotto");
+	die("Error encountered when reading the products table");
 }
 
 echo "<table border='1'>";
-echo "<tr><th>Titolo</th><th>Autore</th><th>Fotografia</th><th>Prezzo</th><th>Quantit&agrave; disponibile</th></tr>";
+echo "<tr><th>Title</th><th>Author</th><th>Cover</th><th>Price</th><th>Availability</th></tr>";
 while($row = $res -> fetch_array()){
 	echo "<tr>";
-	echo "<td>".$row['titolo']."</td>";
-	echo "<td>".$row['autore']."</td>";
-	echo "<td><img src='".$row['fotografia']."' heigth='100px' width='100px'></td>";
-	echo "<td>".$row['prezzo']."</td>";
-	echo "<td>".$row['giacenza']."</td>";
-	
+	echo "<td>".$row['title']."</td>";
+	echo "<td>".$row['author']."</td>";
+	echo "<td><img src='".$row['cover']."' heigth='100px' width='100px'></td>";
+	echo "<td>".$row['price']."</td>";
+	echo "<td>".$row['stock']."</td>";
 	
 	echo "</tr>";
 }
 echo "</table>";
+
 $res ->free();
 $con->close();
 ?>
