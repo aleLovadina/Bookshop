@@ -1,6 +1,6 @@
 <?php
 session_start();
-//recupero dati passati dal form
+//getting data from login page
 $username=$_POST['username'];
 $password=$_POST['password'];
 
@@ -12,34 +12,33 @@ $dbName = "bookshop" ;
 $con = new mysqli($dbHost, $dbUsername, $dbPassword,$dbName);
 $con->set_charset("utf8");
 if($con->connect_error){
-		die('Errore di connessione a '.$dbName);
+		die('Error encountered when connecting to '.$dbName);
 }
-echo "collegamento con bookshop";
 
-$sql="SELECT * FROM utente WHERE username='$username' AND password='$password'";
-echo $sql;
 
-echo "</br>";
+$sql="SELECT * FROM users WHERE username='$username' AND password='$password'";
+
+
+
 
 $res=$con->query($sql);
 if(!$res){
-	die ("errore sql");
+	die ("Error encountered when reading the users table");
 }
 $num=$con->affected_rows;
-if($num!=0){ //utente validato
+if($num!=0){ //user has been validated
 	$row=$res->fetch_array();
 	$_SESSION['username']=$username;
-	$ruolo=$row['ruolo'];
-	$_SESSION['ruolo']=$ruolo;
-	echo $ruolo;
-	if($ruolo=="admin"){
-		header("Location: ../admin/amministratore.php");
+	$role=$row['role'];
+	$_SESSION['role']=$role;
+	
+	if($role=="admin"){
+		header("Location: ../admin/administrator.php");
 	}else{
-		echo "sium";
-		header("Location: ../customer/cliente.php");
+		header("Location: ../customer/client.php");
 	}
 }else{
-	echo "utente non esistente <a href='login.html'>Torna alla pagina di login</a>";
+	echo "User not found -- <a href='login.html'>Go back to login page</a>";
 }
 
 
