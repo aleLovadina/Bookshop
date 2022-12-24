@@ -45,20 +45,25 @@ $res = $con -> query($query);
 if(!$res){
 	die("Error encountered when reading the products table");
 }
-
-echo "<table border='1'>";
-echo "<tr><th>Title</th><th>Author</th><th>Cover</th><th>Price</th><th>Availability</th></tr>";
-while($row = $res -> fetch_array()){
-	echo "<tr>";
-	echo "<td>".$row['title']."</td>";
-	echo "<td>".$row['author']."</td>";
-	echo "<td><img src='".$row['cover']."' heigth='100px' width='100px'></td>";
-	echo "<td>".$row['price']."</td>";
-	echo "<td>".$row['stock']."</td>";
-	
-	echo "</tr>";
-}
+$num=$con->affected_rows;
+if($num!=0){
+	echo "<table border='1'>";
+	echo "<tr><th>Title</th><th>Author</th><th>Cover</th><th>Price</th><th>Availability</th></tr>";
+	while($row = $res -> fetch_array()){
+		echo "<tr>";
+		echo "<td>".$row['title']."</td>";
+		echo "<td>".$row['author']."</td>";
+		echo "<td><img src='".$row['cover']."' heigth='100px' width='100px'></td>";
+		echo "<td>".$row['price']."</td>";
+		echo "<td>".$row['stock']."</td>";
+		
+		echo "</tr>";
+	}
 echo "</table>";
+}else{
+	echo "No results";
+}
+
 
 $res ->free();
 $con->close();
