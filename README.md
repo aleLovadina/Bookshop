@@ -4,7 +4,8 @@ Simple selling website where orders, users, and products are stored in a databas
 
 ## How to install and run
 
-In order to use it, you need to have xampp installed. Once you've installed it, put the bookshop folder inside xampp in the htdocs folder.
+In order to use it, you need to have xampp installed. Once you've installed it, put the bookshop folder inside xampp in the htdocs folder
+Run Apache and MySQL on the xampp control interface.
 
 Then, import the database inside phpMyAdmin. 
 
