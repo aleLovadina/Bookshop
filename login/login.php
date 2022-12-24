@@ -12,7 +12,7 @@ $dbName = "bookshop" ;
 $con = new mysqli($dbHost, $dbUsername, $dbPassword,$dbName);
 $con->set_charset("utf8");
 if($con->connect_error){
-		die('Error encountered when connecting to '.$dbName);
+		die('An error was encountered when connecting to '.$dbName);
 }
 
 
@@ -23,7 +23,7 @@ $sql="SELECT * FROM users WHERE username='$username' AND password='$password'";
 
 $res=$con->query($sql);
 if(!$res){
-	die ("Error encountered when reading the users table");
+	die ("An error was encountered when reading the users table");
 }
 $num=$con->affected_rows;
 if($num!=0){ //user has been validated
